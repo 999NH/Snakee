@@ -49,8 +49,8 @@ if __name__ == '__main__':
     surface = pygame.display.set_mode((800, 800))
     surface.fill((110, 110, 5))
     pygame.display.set_caption("Sneik")
-    background = pygame.image.load('assets/green-tree-python-1014229_1920.jpg')
-    surface.blit(background, (-400, 0))
+    background = pygame.image.load('assets/a1QZqz.jpg')
+    surface.blit(background, (-90, 0))
     pygame.display.flip()
 
     running = True
@@ -76,5 +76,5 @@ if __name__ == '__main__':
             if event.type == pygame.K_UP:
                 pass
 
-        pygame.draw.rect(surface, Quadrat, (400, 400))
+        #pygame.draw.rect(surface, Quadrat, (400, 400))
 
