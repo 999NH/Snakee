@@ -76,5 +76,5 @@ if __name__ == '__main__':
             if event.type == pygame.K_UP:
                 pass
 
-        pygame.draw.rect(surface, Quadrat, (400, 400))
+        #pygame.draw.rect(surface, Quadrat, (400, 400))
 
