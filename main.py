@@ -21,7 +21,7 @@ class Snake:
 
 
 class Essen:
-    def __init__(self):
+    def __init__(self, xKoordinate, yKoordinate):
         self.exist = False
         self.xKoordinate = xKoordinate
         self.yKoordinate = yKoordinate
