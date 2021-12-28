@@ -5,7 +5,8 @@ import random
 
 
 pygame.init()
-
+color1 = (170, 215, 81)
+color2 = (162, 209, 73)
 
 
 class Snake:
@@ -47,10 +48,27 @@ if __name__ == '__main__':
     pygame.init()
 
     surface = pygame.display.set_mode((800, 800))
-    surface.fill((110, 110, 5))
+    surface.fill(color1)
+    y = 0
+    x = 0
+    while x <= 800:
+        while y <= 800:
+            pygame.draw.rect(surface, color2, (x, y, 40, 40))
+            y += 80
+        y = 0
+        x += 80
+
+    y = 40
+    x = 40
+    while x <= 800:
+        while y <= 800:
+            pygame.draw.rect(surface, color2, (x, y, 40, 40))
+            y += 80
+        y = 40
+        x += 80
+
+
     pygame.display.set_caption("Sneik")
-    background = pygame.image.load('assets/green-tree-python-1014229_1920.jpg')
-    surface.blit(background, (-400, 0))
     pygame.display.flip()
 
     running = True
@@ -58,23 +76,28 @@ if __name__ == '__main__':
     while running:
 
         for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    running = False
+
+                if event.key == pygame.K_DOWN:
+                    #später: Pause
+                    pass
+
+                if event.key == pygame.K_RIGHT:
+                    pass
+
+                if event.type == pygame.K_LEFT:
+                    pass
+
+                if event.type == pygame.K_UP:
+                    pass
+
             if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
+                running = False
 
 
 
-            if event.type == pygame.K_DOWN:
-                pass
-
-            if event.type == pygame.K_RIGHT:
-                pass
-
-            if event.type == pygame.K_LEFT:
-                pass
-
-            if event.type == pygame.K_UP:
-                pass
 
         #pygame.draw.rect(surface, Quadrat, (400, 400))
 
