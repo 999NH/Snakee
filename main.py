@@ -16,15 +16,16 @@ class Snake:
 
 
 
+
     def increaseLänge(self):
         self.länge += 1
 
 
-class Essen:
-    def __init__(self, xKoordinate, yKoordinate):
+class Food:
+    def __init__(self, x, y):
         self.exist = False
-        self.xKoordinate = xKoordinate
-        self.yKoordinate = yKoordinate
+        self.x = x
+        self.y = y
 
     def erscheinen(self):
         self.exist = True
@@ -32,23 +33,35 @@ class Essen:
     def verschwinden(self):
         self.exist = False
 
+class Head:
+    def __init__(self, speedx, speedy, position):
+        self.speedx = speedx
+        self.speedy = speedy
+        self.position  = position
 
-class Quadrat:
-    def __init__(self, xKoordinate, yKoordinate):
+
+
+class Tile:
+    def __init__(self, xKoordinate, yKoordinate, position):
         self.xKoordinate = xKoordinate
         self.yKoordinate = yKoordinate
+        self.position = position
 
     def bewegen(self, xSchritt, ySchritt):
+        self.Weg.append(self.position)
         xKoordinate += xSchritt
         yKoordinate += ySchritt
 
 
 
-if __name__ == '__main__':
+while True:
     pygame.init()
-
+    clock = pygame.time.Clock()
     surface = pygame.display.set_mode((800, 800))
     surface.fill(color1)
+
+    #Grid
+    #Gridlength = 40px
     y = 0
     x = 0
     while x <= 800:
@@ -71,17 +84,21 @@ if __name__ == '__main__':
     pygame.display.set_caption("Sneik")
     pygame.display.flip()
 
-    running = True
 
-    while running:
+
+    while True:
 
         for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    running = False
+                    pass
+                    # später: Pause
 
                 if event.key == pygame.K_DOWN:
-                    #später: Pause
                     pass
 
                 if event.key == pygame.K_RIGHT:
@@ -93,11 +110,9 @@ if __name__ == '__main__':
                 if event.type == pygame.K_UP:
                     pass
 
-            if event.type == pygame.QUIT:
-                running = False
 
 
-
+    clock.tick(60)
 
         #pygame.draw.rect(surface, Quadrat, (400, 400))
 
