@@ -1,5 +1,6 @@
 import pygame
 import sys
+from pygame.math import Vector2
 import random
 
 
@@ -10,9 +11,23 @@ color2 = (162, 209, 73)
 
 
 class Snake:
-    def __init__(self, länge):
-        self.länge = länge
+    def __init__(self):
+        self.body = [Vector2(5,10), Vector2(6,10), Vector2(7,10)]
         self.Weg = []
+        self.direction = Vector2(1,0)
+
+    def draw_snake(self):
+        for part in self.body:
+            x_pos = part.x * Gridsize
+            y_pos = part.y * Gridsize
+            body_rect = pygame.Rect(x_pos, y_pos, Gridsize, Gridsize)
+            pygame.draw.rect(surface, 'blue', body_rect)
+
+    def move_snake(self):
+        body_copy = self.body[:-1]
+        body_copy.insert(0, body_copy[0] + self.direction)
+        self.body = body_copy[:]
+
 
 
 
@@ -22,16 +37,18 @@ class Snake:
 
 
 class Food:
-    def __init__(self, x, y):
-        self.exist = False
-        self.x = x
-        self.y = y
+    def __init__(self):
+        self.x = random.randint(0, Gridnumber)
+        self.y = random.randint(0, Gridnumber)
+        self.pos = Vector2(self.x, self.y) #Vektor
 
-    def erscheinen(self):
-        self.exist = True
+    def draw_food(self):
+        food_rect = pygame.Rect(self.pos.x * Gridsize, self.pos.y * Gridsize, Gridsize, Gridsize)
+        pygame.draw.rect(surface, 'red', food_rect)
 
-    def verschwinden(self):
-        self.exist = False
+
+
+
 
 class Head:
     def __init__(self, speedx, speedy, position):
@@ -54,64 +71,89 @@ class Tile:
 
 
 
-while True:
-    pygame.init()
-    clock = pygame.time.Clock()
-    surface = pygame.display.set_mode((800, 800))
+
+#settings
+pygame.init()
+clock = pygame.time.Clock()
+surface = pygame.display.set_mode((800, 800))
+pygame.display.set_caption("Sneik")
+
+Gridnumber = 19
+Gridsize = 40
+def grid():#Grid, 19 tiles
     surface.fill(color1)
+    gridy = 0
+    gridx = 0
+    while gridx <= 800:
+        while gridy <= 800:
+            pygame.draw.rect(surface, color2, (gridx, gridy, Gridsize, Gridsize))
+            gridy += 80
+        gridy = 0
+        gridx += 80
 
-    #Grid
-    #Gridlength = 40px
-    y = 0
-    x = 0
-    while x <= 800:
-        while y <= 800:
-            pygame.draw.rect(surface, color2, (x, y, 40, 40))
-            y += 80
-        y = 0
-        x += 80
-
-    y = 40
-    x = 40
-    while x <= 800:
-        while y <= 800:
-            pygame.draw.rect(surface, color2, (x, y, 40, 40))
-            y += 80
-        y = 40
-        x += 80
+    gridy = Gridsize
+    gridx = Gridsize
+    while gridx <= 800:
+        while gridy <= 800:
+            pygame.draw.rect(surface, color2, (gridx, gridy, Gridsize, Gridsize))
+            gridy += 80
+        gridy = Gridsize
+        gridx += 80
 
 
-    pygame.display.set_caption("Sneik")
-    pygame.display.flip()
+# TestObjekt
+test_essen = Food()
+test_snake = Snake()
 
+#Movement -> 150ms
+SCREEN_UPDATE = pygame.USEREVENT
+pygame.time.set_timer(SCREEN_UPDATE, 150)
 
-
-    while True:
-
+#pause
+def pause():
+    loop = 1
+    while loop:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-
+                loop = 0
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    pass
-                    # später: Pause
+                    loop = 0
+        pygame.display.update()
+        clock.tick(60)
 
-                if event.key == pygame.K_DOWN:
-                    pass
+#mainloop
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
 
-                if event.key == pygame.K_RIGHT:
-                    pass
+        if event.type == SCREEN_UPDATE:
+            test_snake.move_snake()
 
-                if event.type == pygame.K_LEFT:
-                    pass
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                pause()
 
-                if event.type == pygame.K_UP:
-                    pass
+            if event.key == pygame.K_DOWN:
+                pass
+
+            if event.key == pygame.K_RIGHT:
+                pass
+
+            if event.type == pygame.K_LEFT:
+                pass
+
+            if event.type == pygame.K_UP:
+                pass
 
 
+    grid()
+    test_essen.draw_food()
+    test_snake.draw_snake()
 
+    pygame.display.update()
     clock.tick(60)
 
         #pygame.draw.rect(surface, Quadrat, (400, 400))
