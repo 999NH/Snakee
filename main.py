@@ -2,7 +2,6 @@ import pygame
 import sys
 from pygame.math import Vector2
 import random
-from pygame import mixer
 
 class Snake:
     def __init__(self):
@@ -205,7 +204,6 @@ Gridnumber = 19
 Gridsize = 40
 
 #settings
-pygame.mixer.pre_init(44100, -16, 2, 512) #sounds not delayed anymore
 pygame.init()
 game_font = pygame.font.Font('Font/poetsen_one/PoetsenOne-Regular.ttf', 25)
 clock = pygame.time.Clock()
