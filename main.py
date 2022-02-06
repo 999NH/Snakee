@@ -203,13 +203,13 @@ class Main:
 Gridnumber = 19
 Gridsize = 40
 
-#settings
+#setup
 pygame.init()
 game_font = pygame.font.Font('Font/poetsen_one/PoetsenOne-Regular.ttf', 25)
 clock = pygame.time.Clock()
 surface = pygame.display.set_mode((800, 800))
 pygame.display.set_caption("Sneik")
-#images
+#image
 apple = pygame.image.load('assets/Graphics/apple.png').convert_alpha()
 
 
